@@ -1,0 +1,69 @@
+<div class="m-5">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Rank</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col">Price</th>
+        <th scope="col">Marketcap</th>
+        <th scope="col">24H (%)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-template ngFor let-coin [ngForOf]="coins" let-i="index">
+        <tr>
+          <td class="align-middle">
+            <ng-template [ngIf]="coin.market_cap_rank">
+              {{ coin.market_cap_rank }}
+            </ng-template>
+          </td>
+
+          <td class="align-middle">
+            <ng-template [ngIf]="coin.image">
+              <img src="{{ coin.image }}" width="30px" height="30px" />
+            </ng-template>
+          </td>
+
+          <td class="align-middle">
+            <ng-template [ngIf]="coin.name">
+              <strong>{{ coin.name }}</strong>
+            </ng-template>
+          </td>
+
+          <td class="align-middle">
+            <ng-template [ngIf]="coin.current_price">
+              ${{ coin.current_price }}
+            </ng-template>
+          </td>
+
+          <td class="align-middle">
+            <ng-template [ngIf]="coin.market_cap">
+              ${{ coin.market_cap | number }}
+            </ng-template>
+          </td>
+
+          <td class="align-middle">
+            <ng-template [ngIf]="coin.price_change_percentage_24h">
+              <span
+                *ngIf="coin.price_change_percentage_24h > 0; else elseBlock"
+              >
+                <p class="text-success">
+                  {{ coin.price_change_percentage_24h | number : "1.2-2" }}%
+                  <mat-icon>arrow_upward</mat-icon>
+                </p>
+              </span>
+              <ng-template #elseBlock>
+                <p class="text-danger">
+                  {{
+                    coin.price_change_percentage_24h | number : "1.2-2"
+                  }}%<mat-icon>arrow_downward</mat-icon>
+                </p>
+              </ng-template>
+            </ng-template>
+          </td>
+        </tr>
+      </ng-template>
+    </tbody>
+  </table>
+</div>

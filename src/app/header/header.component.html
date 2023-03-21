@@ -1,0 +1,27 @@
+<nav class="navbar navbar-light bg-light shadow p-3 mb-5 bg-white rounded">
+  <a class="navbar-brand">DECRYPTO</a>
+  <div>
+    <input
+      id="search-input"
+      placeholder="Search"
+      [(ngModel)]="searchText"
+      (input)="onSearchTextChange()"
+    />
+    <button type="button" class="btn btn-outline-secondary" (click)="canviar()">
+      <mat-icon>search</mat-icon>
+    </button>
+  </div>
+</nav>
+
+<ul id="lista" class="shadow rounded list-group">
+  <li class="list-group-item" *ngFor="let coin of searchResults">
+    <img alt="" class="example-option-img" [src]="coin.large" height="25" />
+
+    <span> | {{ coin.name }} </span>
+    <strong>({{ coin.symbol }})</strong>
+
+    <span class="float-end">#{{ coin.market_cap_rank }}</span>
+  </li>
+</ul>
+
+<app-coin></app-coin>
