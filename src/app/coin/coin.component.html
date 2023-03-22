@@ -31,34 +31,43 @@
             </ng-template>
           </td>
 
-          <td class="align-middle">
+          <td class="align-middle price">
             <ng-template [ngIf]="coin.current_price">
-              ${{ coin.current_price }}
+              {{ coin.current_price | currency }}
             </ng-template>
           </td>
 
-          <td class="align-middle">
+          <td class="align-middle market-cap">
             <ng-template [ngIf]="coin.market_cap">
-              ${{ coin.market_cap | number }}
+              {{ coin.market_cap | currency }}
             </ng-template>
           </td>
 
-          <td class="align-middle">
+          <td class="align-middle price_change_percentage_24h">
             <ng-template [ngIf]="coin.price_change_percentage_24h">
               <span
-                *ngIf="coin.price_change_percentage_24h > 0; else elseBlock"
+                class="text-success d-flex"
+                *ngIf="
+                  coin.price_change_percentage_24h / 100 >= 0;
+                  else elseBlock
+                "
               >
-                <p class="text-success">
-                  {{ coin.price_change_percentage_24h | number : "1.2-2" }}%
-                  <mat-icon>arrow_upward</mat-icon>
+                <p>
+                  {{
+                    coin.price_change_percentage_24h / 100 | percent : "1.0-2"
+                  }}
                 </p>
+                <mat-icon>arrow_upward</mat-icon>
               </span>
               <ng-template #elseBlock>
-                <p class="text-danger">
-                  {{
-                    coin.price_change_percentage_24h | number : "1.2-2"
-                  }}%<mat-icon>arrow_downward</mat-icon>
-                </p>
+                <span class="text-danger d-flex">
+                  <p>
+                    {{
+                      coin.price_change_percentage_24h / 100 | percent : "1.0-2"
+                    }}
+                  </p>
+                  <mat-icon>arrow_downward</mat-icon>
+                </span>
               </ng-template>
             </ng-template>
           </td>
